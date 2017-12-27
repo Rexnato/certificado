@@ -35,9 +35,11 @@ public class GeneradorCertificado {
 	
 	private static final String NOMBRE_RAZON_SOCIAL = "NOMBRE RAZON SOCIAL";
 	
-	private static final String PATH_CER="C:/Users/Renato-PC/Desktop/llave/"+RFC+".cer";
+	//private static final String PATH_CER="C:/Users/Renato-PC/Desktop/llave/"+RFC+".cer";
+	private static final String PATH_CER="I:/DESARROLLO_EXTERNO/recursos/Firma Digital/Archivos_cer_key/"+RFC+".cer";
 	
-	private static final String PATH_KEY="C:/Users/Renato-PC/Desktop/llave/"+RFC+".key";
+	//private static final String PATH_KEY="C:/Users/Renato-PC/Desktop/llave/"+RFC+".key";
+	private static final String PATH_KEY="I:/DESARROLLO_EXTERNO/recursos/Firma Digital/Archivos_cer_key/"+RFC+".key";
 	
 	private static final String PROVIDER="BC";//
 	
