@@ -1,5 +1,6 @@
 package mx.generacioncertificado;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
@@ -27,6 +28,8 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.joda.time.DateTime;
 
+import mx.zip.ZipConverter;
+
 public class GeneradorCertificado {
 	
 	private static final String RFC="AAA010101AAA";//
@@ -36,17 +39,40 @@ public class GeneradorCertificado {
 	private static final String NOMBRE_RAZON_SOCIAL = "NOMBRE RAZON SOCIAL";
 	
 	//private static final String PATH_CER="C:/Users/Renato-PC/Desktop/llave/"+RFC+".cer";
-	private static final String PATH_CER="I:/DESARROLLO_EXTERNO/recursos/Firma Digital/Archivos_cer_key/"+RFC+".cer";
+	private static final String PATH_CER="I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key/"+RFC+".cer";
 	
 	//private static final String PATH_KEY="C:/Users/Renato-PC/Desktop/llave/"+RFC+".key";
-	private static final String PATH_KEY="I:/DESARROLLO_EXTERNO/recursos/Firma Digital/Archivos_cer_key/"+RFC+".key";
+	private static final String PATH_KEY="I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key/"+RFC+".key";
+	
+	
+	//private static final String PATH_PASS="I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key/"+"password.txt";
+	private static final String PATH_ZIP="C:/Users/israe/Desktop/ZIP/"+RFC+".zip";
+	
+	
+	
+    private static final String SOURCE_FOLDER = "I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key";
 	
 	private static final String PROVIDER="BC";//
 	
 	private static final String PASS_KEY="12345678";//
 	
 	public static void main(String[] args) throws Exception{
-		generar();
+		
+		 //generate random UUIDs
+//	    UUID idOne = UUID.randomUUID();
+//	    UUID idTwo = UUID.randomUUID();
+//
+//	    System.out.println( String.valueOf("UUID One: " + idOne));
+//	    System.out.println( String.valueOf("UUID Two: " + idTwo));
+		
+		
+		
+	
+		ZipConverter zip = new ZipConverter();
+		zip.generateFileList(new File(SOURCE_FOLDER), SOURCE_FOLDER);
+		zip.zipIt(PATH_ZIP, SOURCE_FOLDER);
+		
+		//generar();
 	}
 
 	private static void  generar() throws Exception{
@@ -67,6 +93,9 @@ public class GeneradorCertificado {
 	     X509Certificate rootCA = new JcaX509CertificateConverter().getCertificate(builder  
 	         .build(new JcaContentSignerBuilder("SHA1withRSA").setProvider(PROVIDER).  
 	             build(rootCAKeyPair.getPrivate()))); // private key of signing authority , here it is self signed  
+	     
+	     
+	    
 	     
 	     saveToFile(rootCA.getEncoded(), PATH_CER);  
 	     System.out.println("*** Guardo Cer ****");
