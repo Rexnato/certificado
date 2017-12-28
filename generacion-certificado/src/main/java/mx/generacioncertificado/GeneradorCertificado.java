@@ -152,7 +152,7 @@ public class GeneradorCertificado {
 	}
 	
 	private static void  saveToFiletxt(String ruta) {
-		//String ruta = "/home/mario/archivo.txt";
+		
         File archivo = new File(ruta);
         BufferedWriter bw = null;
         if(!archivo.exists()) {
