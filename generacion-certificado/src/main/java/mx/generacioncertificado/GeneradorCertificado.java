@@ -15,6 +15,7 @@ import java.security.Security;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.Random;
+import java.util.UUID;
 
 import org.bouncycastle.asn1.ASN1ObjectIdentifier;
 import org.bouncycastle.asn1.x500.X500Name;
@@ -30,7 +31,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.joda.time.DateTime;
 
-import mx.zip.ZipConverter;
+import mx.util.GeneradorSerial;
 
 public class GeneradorCertificado {
 	
@@ -59,19 +60,12 @@ public class GeneradorCertificado {
 	
 	public static void main(String[] args) throws Exception{
 		
-		 //generate random UUIDs
-//	    UUID idOne = UUID.randomUUID();
-//	    UUID idTwo = UUID.randomUUID();
-//
-//	    System.out.println( String.valueOf("UUID One: " + idOne));
-//	    System.out.println( String.valueOf("UUID Two: " + idTwo));
 		
-		//saveToFiletxt(PATH_PASS);
+		GeneradorSerial generador = new GeneradorSerial();
 		
-	
-//		ZipConverter zip = new ZipConverter();
-//		zip.generateFileList(new File(SOURCE_FOLDER), SOURCE_FOLDER);
-//		zip.zipIt(PATH_ZIP, SOURCE_FOLDER);
+		System.out.println("Numero de serie (en decimal): "+ generador.obtenerSerialNumber());
+	    
+	    		
 		
 		//generar();
 	}
@@ -82,7 +76,7 @@ public class GeneradorCertificado {
 		KeyPair rootCAKeyPair = generateKeyPair();  
 	     X509v3CertificateBuilder builder = new JcaX509v3CertificateBuilder(  
 	         obtenerEmisor(), //emisor 
-	         BigInteger.valueOf(new Random().nextInt()), //serial number of certificate  
+	         new GeneradorSerial().obtenerSerialNumber(),//BigInteger.valueOf(new Random().nextInt()), //serial number of certificate  
 	         DateTime.now().toDate(), // start of validity  
 	         new DateTime(2025, 12, 31, 0, 0, 0, 0).toDate(), //end of certificate validity  
 	         obtenerSujeto(), // subject name of certificate  
