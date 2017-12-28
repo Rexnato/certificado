@@ -1,7 +1,9 @@
 package mx.generacioncertificado;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.KeyPair;
@@ -48,10 +50,9 @@ public class GeneradorCertificado {
 	//private static final String PATH_PASS="I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key/"+"password.txt";
 	private static final String PATH_ZIP="C:/Users/israe/Desktop/ZIP/"+RFC+".zip";
 	
-	
-	
     private static final String SOURCE_FOLDER = "I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key";
 	
+    private static final String PATH_PASS ="I:/DESARROLLO_EXTERNO/recursos/FirmaDigital/Archivos_cer_key/password.txt";
 	private static final String PROVIDER="BC";//
 	
 	private static final String PASS_KEY="12345678";//
@@ -65,12 +66,12 @@ public class GeneradorCertificado {
 //	    System.out.println( String.valueOf("UUID One: " + idOne));
 //	    System.out.println( String.valueOf("UUID Two: " + idTwo));
 		
-		
+		//saveToFiletxt(PATH_PASS);
 		
 	
-		ZipConverter zip = new ZipConverter();
-		zip.generateFileList(new File(SOURCE_FOLDER), SOURCE_FOLDER);
-		zip.zipIt(PATH_ZIP, SOURCE_FOLDER);
+//		ZipConverter zip = new ZipConverter();
+//		zip.generateFileList(new File(SOURCE_FOLDER), SOURCE_FOLDER);
+//		zip.zipIt(PATH_ZIP, SOURCE_FOLDER);
 		
 		//generar();
 	}
@@ -101,6 +102,9 @@ public class GeneradorCertificado {
 	     System.out.println("*** Guardo Cer ****");
 	     saveToFile(rootCAKeyPair.getPrivate().getEncoded(), PATH_KEY);  
 	     System.out.println("*** Guardo Key ****");
+	     
+	     
+	     saveToFiletxt(PATH_PASS);
 	     
 	     System.out.println("*** Verificar pass key valida ****");
 	     ValidadorCertificado validador = new ValidadorCertificado(rootCAKeyPair.getPrivate().getEncoded(), "");
@@ -147,5 +151,27 @@ public class GeneradorCertificado {
 	     fileOutputStream.close();  
 	}
 	
-	
+	private static void  saveToFiletxt(String ruta) {
+		//String ruta = "/home/mario/archivo.txt";
+        File archivo = new File(ruta);
+        BufferedWriter bw = null;
+        if(!archivo.exists()) {
+        	 try {
+				bw = new BufferedWriter(new FileWriter(archivo));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+             try {
+				bw.write("12345678");
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        }else {
+        	System.out.println("El archivo ya se encuentra creado");
+        }
+        
+	}
 }
